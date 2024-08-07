@@ -6,7 +6,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../components/Store';
 import { getError } from '../utils';
-import Button from 'react-bootstrap/esm/Button';
+import { Button } from 'react-bootstrap';
 
 
 const reducer = (state, action) => {

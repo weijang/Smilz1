@@ -36,21 +36,21 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: '$1 to $100',
-    value: '1-100',
+    name: '$1 to $300',
+    value: '1-300',
   },
   {
-    name: '$101 to $500',
-    value: '101-500',
+    name: '$301 to $1000',
+    value: '301-1000',
   },
   {
-    name: '$501 to $10000',
-    value: '501-10000',
+    name: '$1001 to $10000',
+    value: '1001-10000',
   },
 ];
 
 export const ratings = [
-    {
+  {
     name: '4stars & up',
     rating: 4,
   },
@@ -74,7 +74,7 @@ export const ratings = [
 export default function SearchScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const sp = new URLSearchParams(search); // /search?category=Dental
+  const sp = new URLSearchParams(search); // /search?category=Shirts
   const category = sp.get('category') || 'all';
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
@@ -118,14 +118,16 @@ export default function SearchScreen() {
     fetchCategories();
   }, [dispatch]);
 
-  const getFilterUrl = (filter) => {
+    const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
-    return `/search/category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    return `${
+      skipPathname ? '' : '/search?'
+    }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
@@ -134,7 +136,7 @@ export default function SearchScreen() {
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Services</h3>
+          <h3>Department</h3>
           <div>
             <ul>
               <li>
@@ -261,10 +263,13 @@ export default function SearchScreen() {
 
               <div>
                 {[...Array(pages).keys()].map((x) => (
-                    <LinkContainer
-                     key={x + 1}
+                  <LinkContainer
+                    key={x + 1}
                     className="mx-1"
-                    to={getFilterUrl({ page: x + 1 })}
+                      to={{
+                      pathname: '/search',
+                      seacrh: getFilterUrl({ page: x + 1 }, true),
+                    }}
                   >
                     <Button
                       className={Number(page) === x + 1 ? 'text-bold' : ''}

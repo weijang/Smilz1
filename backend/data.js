@@ -72,7 +72,7 @@ const data = {
             price: 6400,
             countInStock: 15,
             brand: 'Smilz',
-            rating: 4.7,
+            rating: 3.0,
             numReviews: 10,
             description: 'Good Service',
         },

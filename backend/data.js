@@ -20,6 +20,12 @@ const data = {
       password: bcrypt.hashSync('321321321'),
       isAdmin: false,
         },
+     {
+      name: 'Alvin lin',
+      email: 'AL@mail.com',
+      password: bcrypt.hashSync('55556666'),
+      isAdmin: false,
+        },
     ],
     
 

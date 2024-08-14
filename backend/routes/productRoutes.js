@@ -12,7 +12,6 @@ productRouter.get('/', async (req, res) => {
 
 const PAGE_SIZE = 3;
 
-
 productRouter.get(
   '/admin',
   isAuth,

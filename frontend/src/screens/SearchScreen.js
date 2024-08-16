@@ -36,16 +36,16 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: '$1 to $300',
-    value: '1-300',
+    name: '$1 to $50',
+    value: '1-50',
   },
   {
-    name: '$301 to $1000',
-    value: '301-1000',
+    name: '$51 to $200',
+    value: '51-200',
   },
   {
-    name: '$1001 to $10000',
-    value: '1001-10000',
+    name: '$201 to $1000',
+    value: '201-1000',
   },
 ];
 
@@ -118,16 +118,14 @@ export default function SearchScreen() {
     fetchCategories();
   }, [dispatch]);
 
-    const getFilterUrl = (filter, skipPathname) => {
+  const getFilterUrl = (filter) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
-    return `${
-      skipPathname ? '' : '/search?'
-    }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    return `/search?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
   return (
     <div>
@@ -264,12 +262,9 @@ export default function SearchScreen() {
               <div>
                 {[...Array(pages).keys()].map((x) => (
                   <LinkContainer
-                    key={x + 1}
+                      key={x + 1}
                     className="mx-1"
-                      to={{
-                      pathname: '/search',
-                      seacrh: getFilterUrl({ page: x + 1 }, true),
-                    }}
+                    to={getFilterUrl({ page: x + 1 })}
                   >
                     <Button
                       className={Number(page) === x + 1 ? 'text-bold' : ''}

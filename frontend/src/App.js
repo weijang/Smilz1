@@ -18,7 +18,7 @@ import SignupScreen from "./screens/SignupScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
-import OrderHistoryScreen from './screens/OrderHistortyScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from "./screens/ProfileScreen";
 import Button from 'react-bootstrap/Button';
 import { getError } from './utils';
@@ -32,6 +32,7 @@ import ProductListScreen from "./screens/ProductListScreen";
 import UserListScreen from "./screens/UserListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
+import UserEditScreen from "./screens/UserEditScreen";
 
 function App() {
     const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -242,6 +243,16 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+
+                         <Route
+                path="/admin/user/:id"
+                element={
+                  <AdminRoute>
+                    <UserEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+
           <Route path="/" element={<HomeScreen />} />
         </Routes>
        </Container>

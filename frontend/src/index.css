@@ -90,3 +90,7 @@ btn-primary,
 .text-bold {
   font-weight: bold;
 }
+
+button.thumbnail {
+  padding: 0;
+}

@@ -33,6 +33,8 @@ import UserListScreen from "./screens/UserListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import UserEditScreen from "./screens/UserEditScreen";
+import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
 
 function App() {
     const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -167,9 +169,11 @@ function App() {
         <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
-                <Route path="/search" element={<SearchScreen />} />
+              <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
+              <Route path="/forget-password" element={<ForgetPasswordScreen />} />
+              <Route path="/reset-password/:token" element={<ResetPasswordScreen />} />
                 <Route
                 path="/profile"
                 element={
@@ -243,8 +247,7 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
-
-                         <Route
+              <Route
                 path="/admin/user/:id"
                 element={
                   <AdminRoute>

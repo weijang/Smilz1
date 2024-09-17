@@ -16,7 +16,6 @@ import { getError } from '../utils';
 import { Store } from '../components/Store';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { toast } from 'react-toastify';
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'REFRESH_PRODUCT':
@@ -37,17 +36,16 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
 function ProductScreen() {
   let reviewsRef = useRef();
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
 
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
-
   const [{ loading, error, product, loadingCreateReview }, dispatch] =
     useReducer(reducer, {
       product: [],
@@ -66,7 +64,6 @@ function ProductScreen() {
     };
     fetchData();
   }, [slug]);
-
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
   const addToCartHandler = async () => {
@@ -83,7 +80,6 @@ function ProductScreen() {
     });
     navigate('/cart');
   };
-
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!comment || !rating) {
@@ -98,7 +94,6 @@ function ProductScreen() {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
       );
-
       dispatch({
         type: 'CREATE_SUCCESS',
       });
@@ -126,7 +121,7 @@ function ProductScreen() {
         <Col md={6}>
           <img
             className="img-large"
-            src={product.image}
+            src={selectedImage || product.image}
             alt={product.name}
           ></img>
         </Col>
@@ -145,6 +140,24 @@ function ProductScreen() {
               ></Rating>
             </ListGroup.Item>
             <ListGroup.Item>Pirce : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>
+              <Row xs={1} md={2} className="g-2">
+                {[product.image, ...product.images].map((x) => (
+                  <Col key={x}>
+                    <Card>
+                      <Button
+                        className="thumbnail"
+                        type="button"
+                        variant="light"
+                        onClick={() => setSelectedImage(x)}
+                      >
+                        <Card.Img variant="top" src={x} alt="product" />
+                      </Button>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </ListGroup.Item>
             <ListGroup.Item>
               Description:
               <p>{product.description}</p>
@@ -235,7 +248,6 @@ function ProductScreen() {
                   onChange={(e) => setComment(e.target.value)}
                 />
               </FloatingLabel>
-
               <div className="mb-3">
                 <Button disabled={loadingCreateReview} type="submit">
                   Submit
